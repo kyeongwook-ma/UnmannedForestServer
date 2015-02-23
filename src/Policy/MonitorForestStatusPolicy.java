@@ -1,10 +1,7 @@
 package Policy;
 
 import Agent.BaseAgent;
-import Agent.BaseAgent.AgentType;
-import Agent.Jeep;
 import Environment.ForestCell;
-import Environment.ForestCell.ForestDensity;
 import Environment.ForestCell.GeoFeature;
 import Environment.Weather.WeatherCondition;
 
@@ -14,35 +11,35 @@ public class MonitorForestStatusPolicy {
 		if(a == null)
 			return true;
 		
-		//°¡½Ã°Å¸®°¡ 5km ÀÌÇÏ¸é Çï¸®ÄßÅÍ´Â ¹èÄ¡µÉ ¼ö ¾ø´Ù.
-		if(c.getWeather().getVisibility() < 5.0 && a.getAgentType().equals(AgentType.Helicopter))
+		//ï¿½ï¿½ï¿½Ã°Å¸ï¿½ï¿½ï¿½ 5km ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½ï¸®ï¿½ï¿½ï¿½Í´ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
+		if(c.getWeather().getVisibility() < 5.0 && a.getAgentType().equals("Helicopter"))
 		{
 			return false;
 		}
 		
-		// ¹Ù¶÷ÀÌ 20m/s ÀÌ»óÀÌ¸é Çï¸®ÄßÅÍ¿Í UAV, ºñÇà±â´Â ¹èÄ¡µÉ ¼ö ¾ø´Ù.
+		// ï¿½Ù¶ï¿½ï¿½ï¿½ 20m/s ï¿½Ì»ï¿½ï¿½Ì¸ï¿½ ï¿½ï¸®ï¿½ï¿½ï¿½Í¿ï¿½ UAV, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 		if(c.getWeather().getWind().getVelocity() > 20)
 		{
-			if(a.getAgentType().equals(AgentType.Helicopter) || a.getAgentType().equals(AgentType.UAV) || a.getAgentType().equals(AgentType.AirPlane))
+			if(a.getAgentType().equals("Helicopter") || a.getAgentType().equals("UAV") || a.getAgentType().equals("AirPlane"))
 			{
 				return false;
 			}
 		}
 		
-		//´«¿À´Â ³¯Àº JEEP ¹èÄ¡ ºÒ°¡
-		if(c.getWeather().getCondition().equals(WeatherCondition.Snowy) && a.getAgentType().equals(AgentType.Jeep))
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ JEEP ï¿½ï¿½Ä¡ ï¿½Ò°ï¿½
+		if(c.getWeather().getCondition().equals(WeatherCondition.Snowy) && a.getAgentType().equals("Jeep"))
 		{
 			return false;
 		}
 		
-		//È£¼ö³ª °­Àº JEEP¹èÄ¡ ºÒ°¡
+		//È£ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ JEEPï¿½ï¿½Ä¡ ï¿½Ò°ï¿½
 		if(c.getFeatureList().contains(GeoFeature.Lake) || c.getFeatureList().contains(GeoFeature.River))
 		{
-			if(a.getAgentType().equals(AgentType.Jeep))
+			if(a.getAgentType().equals("Jeep"))
 				return false;
 		}
 		
-		//¿¬·á°¡ ºÎÁ·ÇÑ agent´Â Á¦¿ÜÇÑ´Ù.
+		//ï¿½ï¿½ï¿½á°¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ agentï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 		if(confType.equals("OPT"))
 		{
 			if(a.getCurrentOptFuel() < a.getFuelEfficiency())

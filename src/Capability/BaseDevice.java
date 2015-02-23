@@ -1,12 +1,7 @@
 package Capability;
 
-import java.io.Serializable;
 
-public class BaseDevice implements Serializable{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+public class BaseDevice {
 	private String deviceID;
 	private String deviceType;
 	private double deprecationCost;

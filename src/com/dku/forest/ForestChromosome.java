@@ -4,9 +4,7 @@ import java.util.ArrayList;
 
 import Agent.AgentInstances;
 import Agent.BaseAgent;
-import Agent.BaseAgent.AgentType;
 import Controller.CurrentScore;
-import Controller.MonitorForestStatusController;
 import Environment.CellInstances;
 import Environment.ForestCell;
 import Environment.ForestCell.ForestDensity;
@@ -104,13 +102,13 @@ public class ForestChromosome extends
 
 				if (cellList.get(i).getDensity().equals(ForestDensity.High)
 						&& agentList.get(j).getAgentType()
-								.equals(AgentType.Jeep)) {
+								.equals("Jeep")) {
 					cost = cost + (agentList.get(j).getOperatorCost() * 0.02);
 
 				}
 
 				// there must be operator in airplane
-				if (agentList.get(j).getAgentType().equals(AgentType.AirPlane)) {
+				if (agentList.get(j).getAgentType().equals("AirPlane")) {
 					cost = cost + (agentList.get(j).getOperatorCost() * 0.02);
 				}
 

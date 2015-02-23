@@ -2,8 +2,6 @@ package Agent;
 
 import java.util.ArrayList;
 
-
-
 public class AgentInstances
 {
 	private static ArrayList<BaseAgent> agentList = new ArrayList<BaseAgent>();

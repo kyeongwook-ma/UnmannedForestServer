@@ -1,14 +1,7 @@
 package Agent;
 
-import java.io.Serializable;
-
-public class Jeep extends BaseAgent implements Serializable{
+public class Jeep extends BaseAgent{
 	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-
 	public Jeep(String agentID, String agentType, double operatorCost,
 			double deprecationCost, double fuelCost, double visionSensitivity,
 			double infraredSensitivity, double GPSSensitibity,

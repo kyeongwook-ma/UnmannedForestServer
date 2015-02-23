@@ -1,6 +1,5 @@
 package Agent;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 import Capability.BaseDevice;
@@ -9,14 +8,13 @@ import Capability.InfraredSensor;
 import Capability.Sensor;
 import Capability.VisionSensor;
 
-public class BaseAgent implements Serializable{
+public class BaseAgent {
 	
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
 	private String agentID;
-	private AgentType agentType;
+	private String agentType;
 	private double operatorCost;
 	private double deprecationCost;
 	private double fuelCost;
@@ -39,7 +37,7 @@ public class BaseAgent implements Serializable{
 		super();
 		deviceList = new ArrayList<BaseDevice>();
 		this.agentID = agentID;
-		this.agentType = AgentType.valueOf(agentType);
+		this.agentType = agentType;
 		this.operatorCost = operatorCost;
 		this.deprecationCost = deprecationCost;
 		this.fuelCost = fuelCost;
@@ -65,12 +63,12 @@ public class BaseAgent implements Serializable{
 		this.agentID = agentID;
 	}
 
-	public AgentType getAgentType() {
+	public String getAgentType() {
 		return agentType;
 	}
 
 	public void setAgentType(String agentType) {
-		this.agentType = AgentType.valueOf(agentType);
+		this.agentType = agentType;
 	}
 
 	public double getOperatorCost() {
@@ -190,9 +188,9 @@ public class BaseAgent implements Serializable{
 		
 	}
 	
-	public enum AgentType{
-		Jeep, UAV, Helicopter, AirPlane
-	}
+//	public enum AgentType{
+//		Jeep, UAV, Helicopter, AirPlane
+//	}
 	
 	public String toString()
 	{

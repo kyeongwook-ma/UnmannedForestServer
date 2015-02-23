@@ -2,18 +2,9 @@ package Controller;
 
 import java.util.ArrayList;
 
-import com.dku.forest.ForestChromosome;
-import com.dku.forest.ForestGeneticAlgorithm;
-
-import Policy.MonitorForestStatusPolicy;
-import Agent.AgentInstances;
 import Agent.BaseAgent;
-import Agent.BaseAgent.AgentType;
-import Environment.CellInstances;
-import Environment.ForestCell;
-import Environment.ForestCell.ForestDensity;
-import Environment.ForestCell.GeoFeature;
-import Environment.Weather.WeatherCondition;
+
+import com.dku.forest.ForestGeneticAlgorithm;
 
 public class MonitorForestStatusController {
 	

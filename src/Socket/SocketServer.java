@@ -1,8 +1,9 @@
 package Socket;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.net.ServerSocket;
@@ -10,6 +11,8 @@ import java.net.Socket;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+
+import com.google.gson.Gson;
 
 import Agent.BaseAgent;
 import Controller.Initializer;
@@ -49,10 +52,10 @@ public class SocketServer {
 
 				// 소켓의 입력스트림을 얻는다.
 				InputStream in = socket.getInputStream();
-				ObjectInputStream ois = new ObjectInputStream(in);
-
-				DataRequest dr = (DataRequest) ois.readObject();
-				forest_list = (ArrayList<ForestCell>) dr.getList();
+				DataInputStream dis = new DataInputStream(in);
+				String requestMsg = dis.readUTF();
+				Request rq = new Gson().fromJson(requestMsg, Request.class);
+				forest_list = (ArrayList<ForestCell>) rq.getForest_list();
 								
 				change(forest_list);
 
@@ -66,31 +69,46 @@ public class SocketServer {
 					System.out.print(" ");
 				}
 				System.out.println();
+				
+				Response rp = new Response();
+				rp.setOpt_score(opt_score);
 
-				DataResponse r = new DataResponse();
-				r.setOpt_score(opt_score);
-				r.setList(device_id);
+				ArrayList<String> nameList = new ArrayList<String>();
+				ArrayList<String> typeList = new ArrayList<String>();
+				
+				for(int i=device_id.size()-11; i<device_id.size()-2;i++)
+				{
+					BaseAgent agent = device_id.get(i);
+					nameList.add(agent.getAgentID());
+					typeList.add(agent.getAgentType());
+				}
+
+				rp.setDevice_id(nameList);
+				rp.setDevice_type(typeList);
+				
 
 				// 소켓의 출력스트림을 얻는다.
 				OutputStream out = socket.getOutputStream();
-				ObjectOutputStream oos = new ObjectOutputStream(out);
+				DataOutputStream dos = new DataOutputStream(out);
+				dos.writeUTF(new Gson().toJson(rp));
+				dos.flush();
 
+				System.out.println(new Gson().toJson(rp));
 				// 원격 소켓(remote Socket)에 데이터를 보낸다.
-				oos.writeObject(r);
-				//System.out.println(r);
-				oos.flush();
-				//System.out.println(getTime() + " 데이터를 전송했습니다.");
 
-				ois.close();
+				System.out.println(getTime() + " 데이터를 전송했습니다.");
+
 				in.close();
-				oos.close();
 				out.close();
 
-				socket.close();
-			} catch (IOException | ClassNotFoundException e) {
+				dis.close();
+				dos.close();		
+
+			} catch (IOException e) {
 				e.printStackTrace();
 			} // try - catch
 		} // while
+
 	} // main
 
 	private static void initialize() {
